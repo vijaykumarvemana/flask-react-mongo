@@ -126,7 +126,7 @@ lastSymptoms: list[str] = None
 clientArray: list[int] = None
 
 
-@app.route("/results", methods=["POST"])
+@app.route("/results", methods=["GET"])
 def results():
     final = ""
     user = list(db.users.find())
