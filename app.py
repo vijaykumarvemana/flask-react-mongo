@@ -51,7 +51,7 @@ except Exception as ex:
     print("ERROR - Cannot connect to db!", str(ex))
 
 
-@app.route("/", methods=["POST"])
+@app.route("/", methods=["GET"])
 def home():
     return "hello world! "
 
