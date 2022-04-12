@@ -56,7 +56,7 @@ def home():
     return "hello world! "
 
 
-@app.route("/user", methods=["POST", "OPTIONS"])
+@app.route("/user", methods=["POST"])
 def create_user():
 
     try:
