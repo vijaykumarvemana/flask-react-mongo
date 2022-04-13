@@ -140,24 +140,24 @@ def results():
     path1 = user[-1]["image"]
     print(path1)
 
-    def readimage(path):
-        count = os.stat(path).st_size / 2
-        with open(path, "rb") as f:
-            return bytearray(f.read())
+    # def readimage(path):
+    #     count = os.stat(path).st_size / 2
+    #     with open(path, "rb") as f:
+    #         return bytearray(f.read())
 
-    def image_function(path1):
+    # def image_function(path1):
 
-        if(bool(path1) or os.path.exists(path1)):
-            bytes = readimage(path1)
-            bytes_string = str(bytes)
-            if(len(bytes_string) > 14):
-                hash_code = str((hash((bytes_string)[0:15])))
-                print(hash_code)
-                return hash_code
-        else:
-            print("there is no image path")
+    #     if(bool(path1) or os.path.exists(path1)):
+    #         bytes = readimage(path1)
+    #         bytes_string = str(bytes)
+    #         if(len(bytes_string) > 14):
+    #             hash_code = str((hash((bytes_string)[0:15])))
+    #             print(hash_code)
+    #             return hash_code
+    #     else:
+    #         print("there is no image path")
 
-    h = image_function(path1)
+    # h = image_function(path1)
     # return str(h)
 
     def get_client_eval_list(birth_date, day_count, days_list):
@@ -360,10 +360,10 @@ def results():
     ]
     mapping = dict(dictionary)
 
-    def mapping11(name, place, field):
-        string_list = list(name + place + field)
+    def mapping11(name, place, field, image):
+        string_list = list(name + place + field + image)
         print(string_list)
-        string_list = name + place + field
+        string_list = name + place + field + image
   # return string_list
   # print(string_list)
         mapping_values = [mapping[x] for x in string_list]
@@ -372,10 +372,10 @@ def results():
         return string
 
     result_mapping = mapping11(user[-1]["name"] + user[-1]["surname"],
-                               user[-1]["place"],  user[-1]["cause"] + user[-1]["effect"])
+                               user[-1]["place"],  user[-1]["cause"] + user[-1]["effect"], user[-1]["image"])
     print("result map", result_mapping)
 
-    final = result_mapping + h + final_string_date
+    final = result_mapping + final_string_date
     # print(result)
     # return final
 
