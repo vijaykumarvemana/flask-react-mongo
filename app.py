@@ -560,7 +560,7 @@ def results():
             max_values_list.append(max_value)
             min_value = min(result_test)
             print("max_value", max_value)
-            # max_abs = abs(max(max_value, -min_value))
+            max_abs = abs(max(max_value, -min_value))
             # print("abs max:", max_abs)
 
             # L=[1,2,3]
@@ -571,7 +571,7 @@ def results():
             def percent():
 
                 for i in result_test[:]:
-                    normalized = round(i, 1)
+                    normalized = round((i/max_abs) * 100, 1)
                     li.append(normalized)
                     i = i + 1
                 # print("print LI:", li)
@@ -620,7 +620,7 @@ def results():
         fi = sixteen(combi)
         comni_list_results.append(fi)
     # print("comni_list-------->", comni_list_results)
-    return json.dumps(comni_list_results)
+    return json.dumps((max_values_list,comni_list_results))
     # return json.dumps(max_values_list)
 
 if __name__ == "__main__":
