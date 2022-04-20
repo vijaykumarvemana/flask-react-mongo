@@ -557,7 +557,7 @@ def results():
                     line_count += 1
 
             max_value = max(result_test)
-            max_values_list.append(max_value)
+            max_values_list.append((combi,max_value))
             min_value = min(result_test)
             print("max_value", max_value)
             max_abs = abs(max(max_value, -min_value))
