@@ -126,7 +126,7 @@ lastClient: str = None
 lastSymptoms: list[str] = None
 clientArray: list[int] = None
 
-array = np.array([
+array1 = np.array([
 "Coscienza",
 "Informazione",
 "Energia",
@@ -140,7 +140,7 @@ array2 = np.array([
 "Materia"
 ])
 
-combinations = np.array([(i+j) for i in array for j in array2])
+combinations = np.array([(i+j) for i in array1 for j in array2])
 
 
 @app.route("/results", methods=["GET"])
@@ -152,7 +152,11 @@ def results():
         user = list(db.users.find())
         date1 = user[-1]["date"]
         symptom1 = user[-1]["symptoms"]
+        
         print("symptoms------->",[symptom1])
+
+        symptom2 = symptom1 == "" and "" or symptom1
+        print("symptom2------->",[symptom2])
         print(date1)
         date2 = datetime.datetime.strptime(date1, '%Y-%m-%d')
         print(date2)
@@ -526,7 +530,8 @@ def results():
 
             # client = final
             # print(client)
-            goal = str(user[-1]["goal"])
+            goal = str(user[-1]["goal"] == "" and "1010"or user[-1]["goal"])
+            print("empty", user[-1]["goal"] == "" and "1010"or user[-1]["goal"], type(user[-1]["goal"]))
             print("Goal----->", goal)
             onlypositive = eval(user[-1]["onlypositive"])
             print("onlypositive:", onlypositive)
@@ -546,7 +551,7 @@ def results():
                         remedy = ''.join(flvl)
                         result = CalculateValue(client=final,
                                                 remedy=remedy,
-                                                symptoms=[symptom1],
+                                                symptoms=[symptom2],
                                                 goal=goal,
                                                 onlyPositive=onlypositive)
                 # print('Result for %s is %f' % (' '.join(flvl), result))
@@ -616,6 +621,7 @@ def results():
         return json.dumps(rel)
     comni_list_results = []
     for combi in combinations:
+
         print(combi)
         fi = sixteen(combi)
         comni_list_results.append(fi)
