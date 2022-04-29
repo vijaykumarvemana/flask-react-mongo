@@ -577,11 +577,13 @@ def results():
             # for a,b in zip(L,M):
             #     print(a,b)
             li = []
+            abs_li = []
             def percent():
 
                 for i in result_test[:]:
                     normalized = round((i/max_abs) * 100, 1)
                     li.append(normalized)
+                    abs_li.append(abs(normalized))
                     i = i + 1
                 # print("print LI:", li)
 
@@ -589,13 +591,13 @@ def results():
 
             # print("print:", flv_re)
             final_list_results = []
-            for a, b in zip(flv_re[1:], li):
+            for a, b, c in zip(flv_re[1:], li, abs_li ):
 
-                results_set = a,b
+                results_set = a,b,c 
                 final_list_results.append(results_set)
                 # print("*************** flvl and list of results **************:", results_set)
 
-            final_list_results = sorted(final_list_results, key=lambda x: x[1])
+            final_list_results = sorted(final_list_results, key=lambda x: x[2], reverse=True)
             # print("*************** flvl and list of results **************:",final_list_results)
             # # print(max_abs)
             # # results_perc = [100 * x / max_abs for x in result_test]
