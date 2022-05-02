@@ -153,7 +153,7 @@ def results():
         user = list(db.users.find())
         date1 = user[-1]["date"]
         symptom1 = user[-1]["symptoms"]
-
+        
         print("symptoms------->",[symptom1])
 
         symptom2 = symptom1 == "" and "" or symptom1
@@ -468,9 +468,9 @@ def results():
                     result += to_add
 
                 return result[:arraySize]
-            # ml_value = user[-1]["random_factor"]
-            # ml_value2 = ml_value == 0.3 and 0.3 or ml_value
-            # print("ml_value, ml_value2---->",type(ml_value), type(ml_value2))
+            ml_value = user[-1]["random_factor"]  
+            ml_value2 = ml_value == 0.3 and 0.3 or ml_value  
+            print("ml_value, ml_value2---->",type(ml_value), type(ml_value2))
 
             def CalculateValue(client: str, remedy: str, symptoms: list[str], goal: list[str], onlyPositive: bool) -> float:
                 global lastClient, lastSymptoms, clientArray
@@ -528,8 +528,8 @@ def results():
                 # if (rnd > stDivMax):
                 #     rnd *= stDivMax
                 # mult = stDivMax - rnd + random.random() * rnd
-                # mult = ml_value2
-                result *= 0.3
+                mult = ml_value2
+                result *= float(mult)
 
                 return result
 
@@ -594,7 +594,7 @@ def results():
             final_list_results = []
             for a, b, c in zip(flv_re[1:], li, abs_li ):
 
-                results_set = a,b,c
+                results_set = a,b,c 
                 final_list_results.append(results_set)
                 # print("*************** flvl and list of results **************:", results_set)
 
