@@ -470,7 +470,7 @@ def results():
                 return result[:arraySize]
             ml_value = user[-1]["random_factor"]  
             ml_value2 = ml_value == 0.3 and 0.3 or ml_value  
-            print("ml_value, ml_value2---->",ml_value, ml_value2)
+            print("ml_value, ml_value2---->",type(ml_value), type(ml_value2))
 
             def CalculateValue(client: str, remedy: str, symptoms: list[str], goal: list[str], onlyPositive: bool) -> float:
                 global lastClient, lastSymptoms, clientArray
@@ -529,7 +529,7 @@ def results():
                 #     rnd *= stDivMax
                 # mult = stDivMax - rnd + random.random() * rnd
                 mult = ml_value2
-                result *= mult
+                result *= float(mult)
 
                 return result
 
