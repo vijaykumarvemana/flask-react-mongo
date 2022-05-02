@@ -1,1 +1,1 @@
-web: gunicorn app_no_random:app
+web: gunicorn app_no_random:app_no_random
