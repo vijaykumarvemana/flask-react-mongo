@@ -1,5 +1,6 @@
 
 from __future__ import annotations
+from curses import keyname
 from unittest import result
 from flask import redirect, url_for
 from psutil import users
@@ -133,14 +134,14 @@ array1 = np.array([
 "Materia"
 ])
 
-array2 = np.array([
-"Coscienza",
-"Informazione",
-"Energia",
-"Materia"
-])
+# array2 = np.array([
+# "Coscienza",
+# "Informazione",
+# "Energia",
+# "Materia"
+# ])
 
-combinations = np.array([(i+j) for i in array1 for j in array2])
+combinations = np.array([i for i in array1])
 
 
 @app.route("/results", methods=["GET"])
@@ -467,6 +468,9 @@ def results():
                     result += to_add
 
                 return result[:arraySize]
+            ml_value = user[-1]["random_factor"]  
+            ml_value2 = ml_value == 0.3 and 0.3 or ml_value  
+            print("ml_value, ml_value2---->",type(ml_value), type(ml_value2))
 
             def CalculateValue(client: str, remedy: str, symptoms: list[str], goal: list[str], onlyPositive: bool) -> float:
                 global lastClient, lastSymptoms, clientArray
@@ -519,12 +523,13 @@ def results():
 
                 # mult = 0.3
 
-                rnd = random.random()
-                stDivMax = 0.3
-                if (rnd > stDivMax):
-                    rnd *= stDivMax
-                mult = stDivMax - rnd + random.random() * rnd
-                result *= mult
+                # rnd = random.random()
+                # stDivMax = 0.3
+                # if (rnd > stDivMax):
+                #     rnd *= stDivMax
+                # mult = stDivMax - rnd + random.random() * rnd
+                mult = ml_value2
+                result *= float(mult)
 
                 return result
 
@@ -573,11 +578,13 @@ def results():
             # for a,b in zip(L,M):
             #     print(a,b)
             li = []
+            abs_li = []
             def percent():
 
                 for i in result_test[:]:
                     normalized = round((i/max_abs) * 100, 1)
                     li.append(normalized)
+                    abs_li.append(abs(normalized))
                     i = i + 1
                 # print("print LI:", li)
 
@@ -585,13 +592,13 @@ def results():
 
             # print("print:", flv_re)
             final_list_results = []
-            for a, b in zip(flv_re[1:], li):
+            for a, b, c in zip(flv_re[1:], li, abs_li ):
 
-                results_set = a,b
+                results_set = a,b,c 
                 final_list_results.append(results_set)
                 # print("*************** flvl and list of results **************:", results_set)
 
-            final_list_results = sorted(final_list_results, key=lambda x: x[1])
+            final_list_results = sorted(final_list_results, key=lambda x: x[2], reverse=True)
             # print("*************** flvl and list of results **************:",final_list_results)
             # # print(max_abs)
             # # results_perc = [100 * x / max_abs for x in result_test]
